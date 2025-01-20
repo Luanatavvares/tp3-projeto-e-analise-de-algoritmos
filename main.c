@@ -52,7 +52,8 @@ int main() {
                 criptografa_chave_aleatoria(input_file, output_file);
                 printf("Arquivo criptografado com chave aleatória!\n");
                 key = criptografa_chave_aleatoria(input_file, output_file);
-                advinha_chave(input_file, key);
+                frequencias(input_file);
+                advinha_chave(output_file, key);
 
                 break;
 

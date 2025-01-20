@@ -40,37 +40,35 @@ void advinha_chave(const char *input_file, int real_key) {
         return;
     }
 
+    // Calcular as frequências relativas
     for (int i = 0; i < ALPHABET_SIZE; i++) {
         calculated_freq[i] = (frequencies[i] / (double)total_chars) * 100;
     }
 
     int guessed_key = 0;
-    double min_diff = 1e9;
+    double min_diff = INFINITY;
 
+    // Comparar a distribuição de frequências deslocadas
     for (int key = 0; key < ALPHABET_SIZE; key++) {
         double total_diff = 0.0;
 
+        // Comparando as frequências de cada letra deslocada
         for (int i = 0; i < ALPHABET_SIZE; i++) {
             int shifted_index = (i + key) % ALPHABET_SIZE;
             total_diff += fabs(calculated_freq[i] - PORTUGUESE_FREQ[shifted_index]);
         }
 
+        // Verificar se a chave estimada tem uma diferença menor
         if (total_diff < min_diff) {
             min_diff = total_diff;
             guessed_key = key;
         }
     }
 
-    printf("\nFrequências encontradas no texto:\n");
-    for (int i = 0; i < ALPHABET_SIZE; i++) {
-        printf("%c: %.2f%%\n", i + ASCII_OFFSET, calculated_freq[i]);
-    }
-
+    // Exibir resultados
     printf("\nChave real usada: %d\n", real_key);
     printf("Chave estimada: %d\n", guessed_key);
 }
-
-
 
 void criptografa(const char *input_file, const char *output_file, int key) {
     FILE *in = fopen(input_file, "r");
@@ -106,7 +104,7 @@ void descriptografa(const char *input_file, const char *output_file, int key) {
     char ch;
     while ((ch = fgetc(in)) != EOF) {
         if (isprint(ch)) {
-            fputc(((ch - 32 - key + 95) % 95) + 32, out);
+            fputc(((ch - 32 - key + 95) % 95 + 95) % 95 + 32, out);
         } else {
             fputc(ch, out);
         }
@@ -130,23 +128,29 @@ void frequencias(const char *file_path) {
         return;
     }
 
-    int frequencies[95] = {0};
+    int frequencies[ALPHABET_SIZE] = {0};
     int total_chars = 0;
 
     char ch;
     while ((ch = fgetc(in)) != EOF) {
-        if (isprint(ch)) {
-            frequencies[ch - 32]++;
+        if (isalpha(ch)) { 
+            ch = tolower(ch); 
+            frequencies[ch - ASCII_OFFSET]++;
             total_chars++;
         }
     }
 
     fclose(in);
 
-    printf("Frrequência de caracteres:\n");
-    for (int i = 0; i < 95; i++) {
+    if (total_chars == 0) {
+        printf("Nenhuma letra encontrada no arquivo.\n");
+        return;
+    }
+
+    printf("Frequência de caracteres no arquivo de entrada:\n");
+    for (int i = 0; i < ALPHABET_SIZE; i++) {
         if (frequencies[i] > 0) {
-            printf("%c: %.2f%%\n", i + 32, (frequencies[i] / (double)total_chars) * 100);
+            printf("%c: %.2f%%\n", i + ASCII_OFFSET, (frequencies[i] / (double)total_chars) * 100);
         }
     }
 }
