@@ -21,10 +21,10 @@ int main() {
 
     switch (choice) {
         case 1:
-            search_from_file(filename, pattern, shift_and);
+            busca(filename, pattern, shift_and);
             break;
         case 2:
-            search_from_file(filename, pattern, kmp_search);
+            busca(filename, pattern, kmp);
             break;
         default:
             printf("Escolha inválida.\n");

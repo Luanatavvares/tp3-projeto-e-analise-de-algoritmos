@@ -28,7 +28,7 @@ void shift_and(const char *text, const char *pattern) {
     }
 }
 
-void kmp_search(const char *text, const char *pattern) {
+void kmp(const char *text, const char *pattern) {
     int m = strlen(pattern);
     int n = strlen(text);
 
@@ -84,7 +84,7 @@ void compute_lps(const char *pattern, int m, int *lps) {
     }
 }
 
-void search_from_file(const char *filename, const char *pattern, void (*search_func)(const char *, const char *)) {
+void busca(const char *filename, const char *pattern, void (*search_func)(const char *, const char *)) {
     FILE *file = fopen(filename, "r");
     if (!file) {
         perror("Erro ao abrir o arquivo");
