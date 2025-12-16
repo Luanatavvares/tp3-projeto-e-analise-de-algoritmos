@@ -14,7 +14,6 @@ O código está organizado de forma modular, dividido em dois diretórios princi
 
 Além disso, o diretório raiz contém o arquivo `main.c`, o `Makefile`, os arquivos de entrada utilizados nos testes e os arquivos de saída gerados pelo programa.
 
-O uso do Makefile automatiza todo o processo de compilação, facilitando a execução do projeto em diferentes ambientes.
 
 ## Tarefa A — Casamento Exato de Padrões
 
