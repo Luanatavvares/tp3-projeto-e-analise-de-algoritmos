@@ -1,0 +1,1 @@
+Criptografia é uma técnica essencial para garantir a segurança da informação. Ela permite que dados sejam transformados de uma forma legível para algo que só pode ser lido por aqueles que possuem a chave correta. A criptografia tem aplicações em diversos campos, desde a comunicação até o armazenamento seguro de dados
